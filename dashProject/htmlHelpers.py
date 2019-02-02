@@ -44,12 +44,23 @@ def generateIndexString():
                             A range graph shows a distribution of the length of flights, broken down by aircraft type.</p>
                         </div>
 
+
+                        <div id="howto">
+                            <div class="intro">
+                                <h2>How to use Plotly graphs</h2>
+                                <p>Fly the data is built using interactive plotly graphs. 
+                                This allows you to select and view the data you are most interested in.<br>
+                                Use the zoom/pans/select tools to explore the data.</p>
+                            </div>
+
+                        </div> <!-- end of how to -->
+
                         <div class="twocol">
 
                             <div class="collected">
                                 <h2>How the data is collected?</h2>
                                 <p>The routes and airport data was obtained from <a href="https://openflights.org/data.html">OpenFlights</a>. 
-                                Unfortunately, the route data is a bit data. Aircraft performance was scrubbed 
+                                Unfortunately, the route data is a bit outdated. Aircraft performance was scrubbed 
                                 from the <a href="https://contentzone.eurocontrol.int/apm/">Eurocontrol database</a>. </p>
                             </div>
 
@@ -66,15 +77,6 @@ def generateIndexString():
                 </div>
 
 
-                <div class="howto" id="howto">
-                    <div class="intro">
-                        <h2>How to use Plotly graphs</h2>
-                        <p>Fly the data is built using interactive plotly graphs. 
-                        This allows you to select and view the data you are most interested in.
-                        Use the zoom/pans/select tools to explore the data.</p>
-                    </div>
-
-                </div> <!-- end of how to -->
 
             </div><!-- end frame -->
 

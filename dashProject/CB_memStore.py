@@ -2,7 +2,6 @@ from .server import dash, app, Output, Input, State, dcc, html, log
 
 #data import
 from . import dataModule
-from .speciesCards import speciesSelectorId
 
 import numpy as np
 import datetime
@@ -21,11 +20,11 @@ def updateText(xCfgLocations, xCfgAirlines, xCfgAircraft):
     selectedAirlines   = xCfgAirlines.get('airlines', dataModule.Airlines)
     selectedAircraft   = xCfgAircraft.get('aircraft', dataModule.Aircraft)
 
-    filteredData, _ = dataModule.filterData(selectedAirports, selectedAirlines, selectedAircraft)
+    filteredData = dataModule.filterData(selectedAirports, selectedAirlines, selectedAircraft)
 
-    nAirports = filteredData['Airports'].nunique()
-    nAirlines = filteredData['Airlines'].nunique()
-    nAircraft = filteredData['Aircraft'].nunique()
+    nAirports = filteredData['srcAirport'].nunique()
+    nAirlines = filteredData['airlineIATA'].nunique()
+    nAircraft = filteredData['aircraft'].nunique()
 
     return [html.Div('%i Airports'%nAirports, className='timeWindow'),
             html.Div('%i Airlines'%nAirlines, className="timeWindow"),
@@ -51,7 +50,7 @@ def updateStore(selectedData):
 @app.callback(
     Output('xCfgAircraft', 'data'),
     [Input('AircraftGraph', 'relayoutData')])
-def updateStore(relayoutData, xCfg_data):
+def updateStore(relayoutData):
 ########################################
 ########################################
     log.warning('Not yet implemented')
@@ -62,9 +61,8 @@ def updateStore(relayoutData, xCfg_data):
 ########################################
 @app.callback(
     Output('xCfgLocations', 'data'),
-    [Input('WorldMapGraph', 'selectedData')],
-    [State('xCfgLocations', 'data')])
-def updateStore(locationSelected, xCfg_data):
+    [Input('WorldMapGraph', 'selectedData')])
+def updateStore(locationSelected):
 ########################################
 ########################################
     log.warning('Not yet implemented')

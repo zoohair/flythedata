@@ -39,10 +39,9 @@ routesData = loadData(os.path.join(os.path.dirname(__file__), './dataFolder/rout
 log.warn('Need to properly do this')
 Airports = routesData['destAirport'].unique()
 Airlines = routesData['airlineIATA'].unique()
-Aircraft = routesData['Aircraft'].unique()
+Aircraft = routesData['aircraft'].unique()
 
-
-def filterData(selectedAirports, selectedAirlines, selectedAircraft)
+def filterData(selectedAirports, selectedAirlines, selectedAircraft):
 
     global routesData
 

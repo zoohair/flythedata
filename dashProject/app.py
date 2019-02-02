@@ -2,11 +2,6 @@ from .server import app, log, plotlyConfig, dcc, html
 
 
 
-#Template File Import
-from .speciesCards import speciesGuide
-
-
-
 #Import other helpful modules
 import numpy as np
 import pandas as pd
@@ -32,7 +27,6 @@ header = html.Header([
             ], className='title'),
             html.Div([
                 html.A('About this dataset', href="#about"),
-                html.A('How to use', href="#howto")
             ], className='links')
     ])
 
@@ -63,7 +57,7 @@ airlineGraphConfig = copy.deepcopy(plotlyConfig)
 airlineGraphConfig['displayModeBar'] = False
 airlines = html.Div([
             dcc.Graph(id='AirlinesGraph', config=airlineGraphConfig, figure=emptyFig,
-                     animate=False, rangeGraphConfig=False)
+                     animate=False, clear_on_unhover=False)
             ], className="species-wrapper")
 
 rangesGraphConfig = copy.deepcopy(plotlyConfig)
@@ -82,7 +76,7 @@ dashboard = html.Div([location, rightCol],className='dashboard')
 
 javaScripts = [gdc.Import(src='./assets/hoverCursor.js')]
 
-bodyDivs += [header, speciesGuide, statsBar, dashboard,
+bodyDivs += [header, statsBar, dashboard,
                 dcc.Store(id='xCfgAirlines', data={}, storage_type='memory'),
                 dcc.Store(id='xCfgLocations', data={},  storage_type='memory'),
                 dcc.Store(id='xCfgAircraft', data={},  storage_type='memory')] + \

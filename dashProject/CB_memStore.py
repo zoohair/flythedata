@@ -22,9 +22,9 @@ def updateText(xCfgLocations, xCfgAirlines, xCfgAircraft):
 
     filteredData = dataModule.filterData(selectedAirports, selectedAirlines, selectedAircraft)
 
-    nAirports = filteredData['srcAirport'].nunique()
-    nAirlines = filteredData['airlineIATA'].nunique()
-    nAircraft = filteredData['aircraft'].nunique()
+    nAirports = len(np.unique(np.concatenate([filteredData['srcAirport'].values, filteredData['destAirport'].values])))
+    nAirlines = filteredData['airline'].nunique()
+    nAircraft = len(np.unique(np.concatenate(filteredData['aircraft'].values)))
 
     return [html.Div('%i Airports'%nAirports, className='timeWindow'),
             html.Div('%i Airlines'%nAirlines, className="timeWindow"),

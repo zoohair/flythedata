@@ -11,6 +11,7 @@ pyyaml #for yaml configs
 jupyter #for jupyter notbeek
 plotly #for visualization
 pandas #for dataframes
+colorlover #for colors!
 
 ######################
 #Dash server components

@@ -9,7 +9,7 @@ def generateIndexString():
         <head>
 
             {%metas%}
-            <title>Dive the Data</title>
+            <title>Fly the Data</title>
             <link rel="icon" type="image/png" href="./assets/favicon/favicon-16.png" sizes="16x16">  
             <link rel="icon" type="image/png" href="./assets/favicon/favicon-32.png" sizes="32x32">  
             <link rel="icon" type="image/png" href="./assets/favicon/favicon-96.png" sizes="96x96"> 

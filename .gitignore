@@ -1,0 +1,6 @@
+__pycache__/
+.ipynb_checkpoints/
+.sass-cache/
+cache-directory/
+
+dashProject/credentials/

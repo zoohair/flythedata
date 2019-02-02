@@ -1,0 +1,41 @@
+###########
+#For core
+###########
+numpy #for math and numerical stuff
+pyyaml #for yaml configs
+
+
+######################
+#For visualization / python notebook
+######################
+jupyter #for jupyter notbeek
+plotly #for visualization
+pandas #for dataframes
+
+######################
+#Dash server components
+######################
+
+#Being pedantic about dash versions as it's still unstable
+dash==0.31.1
+dash-core-components==0.40.2
+dash-html-components==0.13.2
+dash-renderer==0.15.1
+
+###########
+#For hacks
+###########
+grasia-dash-components
+dash-dangerously-set-inner-html
+
+######################
+#Generic server stuff
+######################
+gunicorn #for multiple processes on gcloud
+
+#####
+# For pulling data from google sheets
+#####
+oauth2client
+google-api-python-client
+gspread

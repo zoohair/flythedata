@@ -1,0 +1,729 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400");
+html {
+  background-color: #404545;
+  color: #fff; }
+
+a {
+  color: #fff; }
+
+a:hover {
+  color: #117a86; }
+
+#speciesCards h4 {
+  font-size: 14px;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 600; }
+#speciesCards svg {
+  fill: currentColor; }
+#speciesCards .Myliobatiformes h4 {
+  background-color: #32baba; }
+#speciesCards .Myliobatiformes .species {
+  border-color: #32baba; }
+#speciesCards .Myliobatiformes .GiantManta.selected {
+  color: #0a8e87; }
+#speciesCards .Myliobatiformes .ReefManta.selected {
+  color: #32baba; }
+#speciesCards .Myliobatiformes .ShortfinDevilRay.selected {
+  color: #67d3d0; }
+#speciesCards .Myliobatiformes .SmalleyeStingray.selected {
+  color: #a2ede9; }
+#speciesCards .Rhinopristiformes h4 {
+  background-color: #0dc997; }
+#speciesCards .Rhinopristiformes .species {
+  border-color: #0dc997; }
+#speciesCards .Rhinopristiformes .BowmouthGuitarfish.selected {
+  color: #0dc997; }
+#speciesCards .Orectolobiformes h4 {
+  background-color: #30b8e2; }
+#speciesCards .Orectolobiformes .species {
+  border-color: #30b8e2; }
+#speciesCards .Orectolobiformes .WhaleShark.selected {
+  color: #1a708e; }
+#speciesCards .Orectolobiformes .LeopardShark.selected {
+  color: #30b8e2; }
+#speciesCards .Cetacea h4 {
+  background-color: #ce6bc0; }
+#speciesCards .Cetacea .species {
+  border-color: #ce6bc0; }
+#speciesCards .Cetacea .HumpbackWhale.selected {
+  color: #ba38b4; }
+#speciesCards .Cetacea .Indo-PacificBottlenoseDolphin.selected {
+  color: #ce6bc0; }
+#speciesCards .Cetacea .Indo-PacificHumpbackedDolphin.selected {
+  color: #e5c9f2; }
+#speciesCards .Chelonioidea h4 {
+  background-color: #97c441; }
+#speciesCards .Chelonioidea .species {
+  border-color: #97c441; }
+#speciesCards .Chelonioidea .GreenTurtle.selected {
+  color: #a2d165; }
+#speciesCards .Chelonioidea .LoggerheadTurtle.selected {
+  color: #618e1a; }
+#speciesCards .Chelonioidea .HawksbillTurtle.selected {
+  color: #97c441; }
+#speciesCards .Chelonioidea .LeatherbackTurtle.selected {
+  color: #3d600b; }
+#speciesCards .species {
+  color: #798080; }
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor; }
+
+/* ==========================================
+Single-colored icons can be modified like so:
+.icon-name {
+  font-size: 32px;
+  color: red;
+}
+========================================== */
+.icon-HumpbackWhale {
+  width: 2.6875em; }
+
+.icon-WhaleShark, .icon-ZebraShark {
+  width: 3.0439453125em; }
+
+.icon-Bowmouthguitarfish {
+  width: 3.06640625em; }
+
+.icon-GiantManta, .icon-ReefManta, .icon-ShortfinDevilRay, .icon-SmalleyeStingray {
+  width: 1.8642578125em; }
+
+.icon-Indo-PacificBottlenoseDolphin, .icon-Indo-PacificHumpbackedDolphin {
+  width: 2.267578125em; }
+
+.icon-LoggerheadTurtle, .icon-GreenTurtle, .icon-HawksbillTurtle, .icon-LeatherbackTurtle {
+  width: 1.90234375em; }
+
+body {
+  font-family: "Open Sans", sans-serif; }
+
+h1, h2, h3 {
+  font-weight: 300; }
+
+h1 {
+  font-size: 57px;
+  line-height: 100%; }
+  @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+    h1 {
+      font-size: 35px; } }
+
+h2 {
+  font-size: 34px;
+  margin-bottom: 0; }
+  @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+    h2 {
+      font-size: 26px; } }
+
+h3 {
+  font-size: 22px; }
+
+p {
+  font-size: 16px;
+  line-height: 140%;
+  font-weight: 300; }
+
+body, html {
+  margin: 0;
+  padding: 0; }
+
+html {
+  margin: 0; }
+
+._dash-undo-redo {
+  display: none; }
+
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  height: 90vh;
+  align-items: flex-start; }
+  @media only screen and (orientation: portrait) {
+    .dashboard {
+      flex-direction: row;
+      height: auto;
+      justify-content: center; } }
+  .dashboard .rightCol {
+    width: 42vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    justify-content: space-between; }
+    @media only screen and (orientation: portrait) {
+      .dashboard .rightCol {
+        width: 100%;
+        height: auto;
+        order: 1; } }
+    .dashboard .rightCol .longterm-wrapper,
+    .dashboard .rightCol .species-wrapper {
+      height: 44vh; }
+      .dashboard .rightCol .longterm-wrapper .js-plotly-plot,
+      .dashboard .rightCol .longterm-wrapper .plot-container,
+      .dashboard .rightCol .species-wrapper .js-plotly-plot,
+      .dashboard .rightCol .species-wrapper .plot-container {
+        height: 44vh; }
+      @media only screen and (orientation: portrait) {
+        .dashboard .rightCol .longterm-wrapper,
+        .dashboard .rightCol .species-wrapper {
+          margin-top: 25px; } }
+  .dashboard .location-wrapper {
+    height: 90vh;
+    width: 32vw;
+    display: flex;
+    flex-direction: column;
+    margin-right: 40px;
+    box-sizing: border-box; }
+    @media only screen and (orientation: portrait) {
+      .dashboard .location-wrapper {
+        width: 100%;
+        height: 80vh;
+        margin-right: 0; }
+        .dashboard .location-wrapper .js-plotly-plot,
+        .dashboard .location-wrapper .plot-container {
+          height: 44vh; } }
+    .dashboard .location-wrapper #location {
+      flex-grow: 2; }
+
+#speciesGuide.compacted {
+  width: 16vw;
+  padding: 0; }
+  @media only screen and (orientation: portrait) {
+    #speciesGuide.compacted {
+      width: auto;
+      height: auto;
+      min-height: auto; } }
+  @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+    #speciesGuide.compacted {
+      padding: 0; } }
+
+#speciesGuide {
+  position: absolute;
+  right: 0;
+  width: 80vw;
+  height: auto !important;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  z-index: 2; }
+  @media only screen and (orientation: portrait) {
+    #speciesGuide {
+      order: 0;
+      position: static;
+      width: auto;
+      flex-direction: column; } }
+
+header {
+  display: flex !important;
+  flex-wrap: nowrap;
+  border-bottom: 1px solid white;
+  margin: 0 0 40px;
+  align-items: baseline;
+  padding: 26px 0 12px 0;
+  justify-content: space-between;
+  align-items: flex-end; }
+  @media only screen and (max-device-width: 1280px) {
+    header {
+      margin: 0 0 40px; } }
+  @media only screen and (orientation: portrait) {
+    header {
+      margin: 0 0 40px;
+      flex-direction: column;
+      padding-bottom: 0; } }
+  @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+    header {
+      margin: 0 0 10px 0;
+      border-bottom: none; } }
+  header .logo {
+    font-weight: 300;
+    font-size: 18px;
+    text-transform: uppercase; }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      header .logo {
+        font-size: 15px; } }
+  header h1 {
+    width: 100%;
+    margin: 0;
+    font-weight: 300;
+    font-size: 27px; }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      header h1 {
+        font-size: 23px; } }
+  @media only screen and (orientation: portrait) {
+    header .links {
+      width: 100%;
+      border-top: 1px solid white;
+      margin-top: 14px;
+      padding: 7px 0;
+      font-size: 20px; } }
+  @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+    header .links {
+      padding: 5px 0 8px; } }
+  header a {
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 300; }
+    @media only screen and (orientation: portrait) {
+      header a {
+        margin-left: 0;
+        margin-right: 20px;
+        font-size: 18px; } }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      header a {
+        font-size: 16px; } }
+
+.stats-bar {
+  background-color: #555656;
+  width: 76vw;
+  display: flex;
+  justify-content: center;
+  font-size: 15px;
+  margin-bottom: 15px; }
+  @media only screen and (orientation: portrait) {
+    .stats-bar {
+      width: auto;
+      margin: 42px 0 22px 0; } }
+  @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+    .stats-bar {
+      justify-content: flex-start;
+      padding: 13px;
+      flex-wrap: wrap; } }
+  .stats-bar .label {
+    padding: 10px;
+    text-transform: uppercase; }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      .stats-bar .label {
+        padding: 0;
+        width: 100%;
+        font-size: 12px;
+        margin-bottom: 4px; } }
+  .stats-bar #stats {
+    display: flex;
+    font-weight: 300; }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      .stats-bar #stats {
+        display: flex;
+        padding: 0;
+        font-size: 16px; } }
+    .stats-bar #stats > * {
+      padding: 10px; }
+      @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+        .stats-bar #stats > * {
+          padding: 0 16px 0 0; } }
+
+.frame {
+  margin: 0 90px; }
+  @media only screen and (max-device-width: 1280px) {
+    .frame {
+      margin: 0 63px; } }
+  @media only screen and (orientation: portrait) {
+    .frame {
+      margin: 0 53px; } }
+  @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+    .frame {
+      margin: 0 28px; } }
+
+.js-plotly-plot .plotly .modebar {
+  background-color: #f1f2f2 !important;
+  padding: 3px;
+  border-radius: 2px;
+  border-color: white; }
+  .js-plotly-plot .plotly .modebar .modebar-btn .icon path {
+    fill: #b5b5b5 !important; }
+  .js-plotly-plot .plotly .modebar .modebar-btn:hover .icon path {
+    fill: lightgrey !important; }
+  .js-plotly-plot .plotly .modebar .modebar-btn.active .icon path {
+    fill: black !important; }
+
+.compacted #speciesCards {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  box-shadow: none; }
+  @media only screen and (orientation: portrait) {
+    .compacted #speciesCards {
+      flex-wrap: wrap;
+      flex-direction: row;
+      margin-bottom: 13px; } }
+  .compacted #speciesCards .clade {
+    margin: 0 0 10px 0; }
+    @media only screen and (orientation: portrait) {
+      .compacted #speciesCards .clade {
+        margin-right: 15px; } }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      .compacted #speciesCards .clade {
+        margin-bottom: 5px;
+        width: 100%; } }
+  .compacted #speciesCards h4 {
+    font-size: 1px;
+    color: transparent;
+    margin: 6px 0;
+    padding: 0;
+    height: 4px; }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      .compacted #speciesCards h4 {
+        margin: 0 0 3px 0; } }
+  .compacted #speciesCards .speciesSelector {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 3px 0; }
+  .compacted #speciesCards .speciesCards {
+    margin: 0;
+    flex-direction: column;
+    flex-wrap: nowrap; }
+    @media only screen and (orientation: portrait) {
+      .compacted #speciesCards .speciesCards {
+        flex-wrap: wrap;
+        flex-direction: row;
+        background-color: transparent; } }
+    .compacted #speciesCards .speciesCards .species {
+      width: auto;
+      border: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      justify-content: flex-end; }
+      @media only screen and (orientation: portrait) {
+        .compacted #speciesCards .speciesCards .species {
+          margin-right: 10px; } }
+      .compacted #speciesCards .speciesCards .species:last-child {
+        margin-right: 0; }
+    .compacted #speciesCards .speciesCards .short-name {
+      display: block;
+      margin: 0;
+      font-weight: 400;
+      font-size: 16px; }
+      @media only screen and (max-device-width: 1280px) {
+        .compacted #speciesCards .speciesCards .short-name {
+          font-size: 14px; } }
+    .compacted #speciesCards .speciesCards .sciname, .compacted #speciesCards .speciesCards .common-name, .compacted #speciesCards .speciesCards .speciesMeta {
+      display: none; }
+    .compacted #speciesCards .speciesCards svg.icon {
+      height: 25px;
+      width: 42px;
+      margin-right: 12px; }
+      @media only screen and (max-device-width: 1280px) {
+        .compacted #speciesCards .speciesCards svg.icon {
+          height: 22px;
+          width: 25px;
+          margin-right: 10px; } }
+
+#speciesCards {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  background-color: #373a3a;
+  box-shadow: -2px 2px 34px rgba(0, 0, 0, 0.27);
+  height: auto;
+  width: 100%;
+  padding: 50px 0 50px 25px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px; }
+  @media only screen and (max-device-width: 1280px) {
+    #speciesCards {
+      padding: 25px 0 25px 18px; } }
+  @media only screen and (orientation: portrait) {
+    #speciesCards {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      padding: 0;
+      background-color: transparent;
+      box-shadow: none;
+      width: auto;
+      margin-bottom: 30px; } }
+  #speciesCards .speciesCards {
+    margin: 0 20px;
+    display: flex;
+    font-weight: 400;
+    color: #dedede; }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      #speciesCards .speciesCards {
+        flex-wrap: wrap;
+        margin: 0; } }
+    #speciesCards .speciesCards .species {
+      width: 150px;
+      border-right: 1px dotted black;
+      padding-right: 20px;
+      margin-right: 20px; }
+      @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+        #speciesCards .speciesCards .species {
+          width: 35vw;
+          box-sizing: border-box; } }
+      #speciesCards .speciesCards .species:last-child {
+        border-right: none;
+        padding-right: 12px; }
+  #speciesCards .common-name {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 400; }
+  #speciesCards .short-name {
+    display: none; }
+  #speciesCards .sciname {
+    margin: 0 0 17px 0;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 400; }
+  #speciesCards .illustration {
+    width: 100%; }
+  #speciesCards .weight, #speciesCards .length {
+    margin: 0;
+    font-size: 12px;
+    color: #dedede; }
+  #speciesCards .source {
+    text-decoration: none;
+    color: #dedede; }
+    #speciesCards .source svg.icon {
+      width: 16px;
+      height: 9px; }
+  #speciesCards h4 {
+    font-size: 14px;
+    background-color: black;
+    color: white;
+    margin-left: 20px;
+    padding: 5px 20px;
+    text-transform: uppercase;
+    font-weight: 600; }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      #speciesCards h4 {
+        margin: 20px 0; } }
+  #speciesCards svg.icon {
+    width: 100%;
+    height: 5rem; }
+
+.speciesTabs {
+  background-image: url(./icons/speciestab.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 255px;
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 20px; }
+  @media only screen and (max-device-width: 1280px) {
+    .speciesTabs {
+      height: 235px;
+      width: 40px; } }
+  @media only screen and (orientation: portrait) {
+    .speciesTabs {
+      background-color: transparent;
+      background-image: none;
+      height: 40px;
+      width: 195px;
+      justify-content: center;
+      flex-direction: row;
+      align-items: center;
+      order: 2;
+      background-color: #484c4c;
+      padding: 14px 23px;
+      border-radius: 14px;
+      box-shadow: 1px 4px 7px rgba(0, 0, 0, 0.3);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      order: 2; } }
+  @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+    .speciesTabs {
+      height: 25px;
+      width: 154px; } }
+  .speciesTabs > div {
+    margin: 5px 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%; }
+  .speciesTabs .text {
+    transform: rotate(-90deg);
+    line-height: 17px;
+    font-size: 16px; }
+    @media only screen and (orientation: portrait) {
+      .speciesTabs .text {
+        transform: none; } }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      .speciesTabs .text {
+        font-size: 14px; } }
+  .speciesTabs .book-icon {
+    background-image: url(./icons/speciesguide.png);
+    height: 12%;
+    margin-top: 15px; }
+    @media only screen and (orientation: portrait) {
+      .speciesTabs .book-icon {
+        width: 50px;
+        height: 32px;
+        margin: 0; } }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      .speciesTabs .book-icon {
+        width: 40px;
+        height: 25px; } }
+  .speciesTabs .arrow-icon {
+    background-image: url(./icons/right.png);
+    height: 9%; }
+    @media only screen and (orientation: portrait) {
+      .speciesTabs .arrow-icon {
+        background-image: url(./icons/up.png);
+        width: 22px;
+        height: 22px;
+        margin: 0; } }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      .speciesTabs .arrow-icon {
+        width: 14px;
+        height: 15px;
+        margin: 0; } }
+  .compacted .speciesTabs .arrow-icon {
+    background-image: url(./icons/left.png); }
+    @media only screen and (orientation: portrait) {
+      .compacted .speciesTabs .arrow-icon {
+        background-image: url(./icons/down.png); } }
+
+.speciesToggle {
+  cursor: pointer; }
+
+.howto {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 50px 0;
+  border-top: 1px solid grey;
+  padding: 50px 0;
+  justify-content: center; }
+  @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+    .howto {
+      margin: 50px 0;
+      padding: 50px 0; } }
+  .howto > div {
+    width: 12vw;
+    margin: 14px 43px 0 43px; }
+    @media only screen and (max-device-width: 1280px) {
+      .howto > div {
+        width: 16vw;
+        margin: 28px 36px 0 36px; } }
+    @media only screen and (orientation: portrait) {
+      .howto > div {
+        width: 22vw;
+        margin: 15px; } }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      .howto > div {
+        width: 36vw;
+        margin: 10px; } }
+  .howto video {
+    width: 100%;
+    border: 10px solid grey;
+    box-sizing: border-box; }
+    @media only screen and (orientation: portrait) {
+      .howto video {
+        border: 6px solid grey; } }
+  .howto h3 {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 10px 0 0 0; }
+  .howto p {
+    font-size: 16px;
+    margin-top: 10px;
+    font-weight: 300; }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      .howto p {
+        margin-top: 5px;
+        font-size: 13px; } }
+  .howto .intro h2 {
+    font-size: 39px;
+    font-weight: 300;
+    margin: 110px 0 0 0;
+    line-height: 45px; }
+    @media only screen and (max-device-width: 1280px) {
+      .howto .intro h2 {
+        font-size: 35px;
+        margin: 0;
+        line-height: 40px; } }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      .howto .intro h2 {
+        font-size: 25px;
+        line-height: 37px; } }
+  .howto .intro p {
+    font-size: 18px;
+    font-weight: 300;
+    margin-top: 13px; }
+    @media only screen and (max-device-width: 1280px) {
+      .howto .intro p {
+        font-size: 16px; } }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      .howto .intro p {
+        font-size: 13px; } }
+
+#about {
+  margin-top: 50px;
+  border-top: 1px solid grey; }
+  #about > div {
+    max-width: 1200px;
+    margin: 0 auto; }
+  #about .header {
+    max-width: 900px;
+    margin-bottom: 42px; }
+    #about .header p {
+      font-size: 22px;
+      font-weight: 300;
+      margin-top: 27px; }
+      @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+        #about .header p {
+          font-size: 16px; } }
+  #about .visualized {
+    max-width: 826px; }
+    #about .visualized h2 {
+      margin-bottom: 0; }
+  #about .twocol {
+    display: flex; }
+    @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+      #about .twocol {
+        display: block; } }
+    #about .twocol > div {
+      margin-left: 56px; }
+      @media only screen and (orientation: portrait) and (max-device-width: 736px) {
+        #about .twocol > div {
+          margin-left: 0; } }
+      #about .twocol > div:first-child {
+        margin-left: 0; }
+
+#contributors {
+  text-align: center;
+  border-top: 1px solid grey;
+  padding-top: 50px;
+  margin-top: 50px;
+  padding-bottom: 64px; }
+  #contributors .divecenters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; }
+    @media only screen and (orientation: portrait) {
+      #contributors .divecenters {
+        font-size: 11px; } }
+    #contributors .divecenters > div {
+      margin: 0 50px; }
+      @media only screen and (orientation: portrait) {
+        #contributors .divecenters > div {
+          margin: 0 9px; } }
+    #contributors .divecenters img {
+      max-width: 198px; }
+      @media only screen and (orientation: portrait) {
+        #contributors .divecenters img {
+          max-width: 128px; } }
+    #contributors .divecenters a {
+      display: block;
+      margin: 14px 0;
+      text-decoration: none; }
+
+#partnership {
+  background-color: #0f3744;
+  text-align: center;
+  padding: 40px; }
+  #partnership img {
+    max-width: 300px; }
+
+#footer {
+  background-color: #0a262d;
+  text-align: center; }
+  #footer p {
+    margin: 0;
+    padding: 26px; }
+
+/*# sourceMappingURL=app.css.map */

@@ -12,6 +12,8 @@ jupyter #for jupyter notbeek
 plotly #for visualization
 pandas #for dataframes
 colorlover #for colors!
+geopy #for geodesic distances
+
 
 ######################
 #Dash server components

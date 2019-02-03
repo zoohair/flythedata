@@ -7,8 +7,6 @@ import datetime
 ################################################
 ################################################
 ################################################
-
-
 import logging
 logging.basicConfig(format='%(levelname)s|%(name)s|\t %(message)s',level=logging.INFO)
 log = logging.getLogger('dataModule')
@@ -91,15 +89,13 @@ def loadData(dataFolder):
     routes.drop(droprows.index, inplace=True)
 
 
-    routes['srcCountry'] = routes['srcAirportID'].apply(airportLookup, args=['country'])
+    routes['srcCountry']  = routes['srcAirportID'].apply(airportLookup, args=['country'])
     routes['destCountry'] = routes['destAirportID'].apply(airportLookup, args=['country'])
 
     routes['srcLon']  = routes['srcAirportID'].apply(airportLookup, args=['lon'])
     routes['srcLat']  = routes['srcAirportID'].apply(airportLookup, args=['lat'])
     routes['destLon'] = routes['destAirportID'].apply(airportLookup, args=['lon'])
     routes['destLat'] = routes['destAirportID'].apply(airportLookup, args=['lat'])
-
-
 
         
     #drop any route that is codeshare or has stops
@@ -120,10 +116,6 @@ def loadData(dataFolder):
     planeDict = lambda codeIATA: planeNames.get(codeIATA, codeIATA)
 
     routes['aircraft'] = routes['aircraft'].astype(str).apply(lambda aclist: planeDict(aclist.split(' ')[0]))
-
-
-
-
 
 
 

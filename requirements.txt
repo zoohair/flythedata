@@ -2,8 +2,9 @@
 #For core
 ###########
 numpy #for math and numerical stuff
+geopy #for geodesic distances
+scipy #for more math tools
 pyyaml #for yaml configs
-
 
 ######################
 #For visualization / python notebook
@@ -12,7 +13,7 @@ jupyter #for jupyter notbeek
 plotly #for visualization
 pandas #for dataframes
 colorlover #for colors!
-geopy #for geodesic distances
+
 
 
 ######################

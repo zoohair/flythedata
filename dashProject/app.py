@@ -58,18 +58,16 @@ airlineGraphConfig['displayModeBar'] = False
 airlines = html.Div([
             dcc.Graph(id='AirlinesGraph', config=airlineGraphConfig, figure=emptyFig,
                      animate=False, clear_on_unhover=False)
-            ], className="species-wrapper")
+            ], className="location-wrapper")
 
 rangesGraphConfig = copy.deepcopy(plotlyConfig)
 rangesGraphConfig['modeBarButtonsToRemove'] += ['autoScale2d']
 ranges = html.Div([
             dcc.Graph(id='AircraftGraph', config=rangesGraphConfig, figure=emptyFig,
                     animate=False, clear_on_unhover=False)
-            ], className="longterm-wrapper")
+            ], className="location-wrapper")
 
-rightCol = html.Div([airlines, ranges],className='rightCol')
-
-dashboard = html.Div([location, rightCol],className='dashboard')
+dashboard = html.Div([location, ranges, airlines],className='dashboard')
 
 ########################################
 ########################################

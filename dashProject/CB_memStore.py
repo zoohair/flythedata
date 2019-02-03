@@ -24,7 +24,7 @@ def updateText(xCfgLocations, xCfgAirlines, xCfgAircraft):
 
     nAirports = len(np.unique(np.concatenate([filteredData['srcAirport'].values, filteredData['destAirport'].values])))
     nAirlines = filteredData['airline'].nunique()
-    nAircraft = len(np.unique(np.concatenate(filteredData['aircraft'].values)))
+    nAircraft = len(np.unique(np.concatenate([s.split(' ') for s in filteredData['aircraft'].values])))
 
     return [html.Div('%i Airports'%nAirports, className='timeWindow'),
             html.Div('%i Airlines'%nAirlines, className="timeWindow"),

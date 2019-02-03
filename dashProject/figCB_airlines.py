@@ -15,10 +15,10 @@ import numpy as np
 def genFigure(xCfgAircraft, xCfgLocations, xCfgAirlines):
 ########################################
 ########################################
-    
     log.warning('not yet implemented!')
     raise dash.exceptions.PreventUpdate()
 
+    
     # if xCfgDates == {} or xCfgLocations == {}:
     #     log.debug('Not ready to render Species Figure')
     #     raise dash.exceptions.PreventUpdate()

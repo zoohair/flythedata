@@ -141,40 +141,40 @@ html {
 .dashboard {
   display: flex;
   flex-wrap: wrap;
-  height: 90vh;
+  height: 140vh;
   align-items: flex-start; }
   @media only screen and (orientation: portrait) {
     .dashboard {
-      flex-direction: row;
-      height: auto;
+      flex-direction: column;
+      height: 140vh;
       justify-content: center; } }
   .dashboard .rightCol {
-    width: 42vw;
-    height: 90vh;
+    width: 80vw;
+    height: 40vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     box-sizing: border-box;
     justify-content: space-between; }
     @media only screen and (orientation: portrait) {
       .dashboard .rightCol {
-        width: 100%;
-        height: auto;
+        width: auto;
+        height: 100%;
         order: 1; } }
     .dashboard .rightCol .longterm-wrapper,
     .dashboard .rightCol .species-wrapper {
-      height: 44vh; }
+      width: 100vh; }
       .dashboard .rightCol .longterm-wrapper .js-plotly-plot,
       .dashboard .rightCol .longterm-wrapper .plot-container,
       .dashboard .rightCol .species-wrapper .js-plotly-plot,
       .dashboard .rightCol .species-wrapper .plot-container {
-        height: 44vh; }
+        width: 100vh; }
       @media only screen and (orientation: portrait) {
         .dashboard .rightCol .longterm-wrapper,
         .dashboard .rightCol .species-wrapper {
           margin-top: 25px; } }
   .dashboard .location-wrapper {
-    height: 90vh;
-    width: 32vw;
+    height: 42vh;
+    width: 80vw;
     display: flex;
     flex-direction: column;
     margin-right: 40px;

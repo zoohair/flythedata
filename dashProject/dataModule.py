@@ -18,14 +18,32 @@ log = logging.getLogger('dataModule')
 ################################################
 ################################################
 
+from geopy.distance import geodesic
+def geoDesicDist(r):
+    dist = round(geodesic(r['srcLonLat'][::-1], r['destLonLat'][::-1]).km)
+
+    return dist
+
 def loadData(dataFolder):
+
+    processedRoutesFile = os.path.join(dataFolder,'routes-processed.dat')
+
+    if os.path.exists(processedRoutesFile):
+        log.debug('Found routes-processed.dat file: loading it directly')
+        return pd.read_csv(processedRoutesFile)
+
+    log.debug('No routes-processed.dat file: building it from other data')
+
     #Load the data
     routesFile   = os.path.join(dataFolder,'routes.dat')
     airportsFile = os.path.join(dataFolder,'airports-extended.dat')
     airlinesFile = os.path.join(dataFolder,'airlines.dat')
+    planesFile   = os.path.join(dataFolder,'planes-extended.dat')
+
     routes   = pd.read_csv(routesFile)
     airports = pd.read_csv(airportsFile)
     airlines = pd.read_csv(airlinesFile)
+    planes   = pd.read_csv(planesFile)
 
     #Get airline names and add column
     airlineIDs = {}
@@ -80,10 +98,23 @@ def loadData(dataFolder):
     routes.drop(droprows.index, inplace=True)
 
 
-    #Split the aircraft field into an array of strings
+    #make sure the aircraft field is an array of strings
     routes.drop(routes.loc[routes['aircraft'].isna()].index, inplace=True)
-    routes['aircraft'] = routes['aircraft'].astype(str)
-    routes['aircraft'] = routes['aircraft'].apply(lambda s: s.split(' '))
+
+    #TODO: handle multiple aircraft per airline... For now, we'll just drop duplicate lines
+
+    planes['codeIATA'] = planes['codeIATA'].astype(str)
+    planeNames = {}
+    for idx, plane in planes.iterrows():
+        planeNames[plane['codeIATA']] = plane['name']
+
+    planeDict = lambda codeIATA: planeNames.get(codeIATA, codeIATA)
+
+    routes['aircraft'] = routes['aircraft'].astype(str).apply(lambda aclist: planeDict(aclist.split(' ')[0]))
+
+
+
+
 
 
 
@@ -97,16 +128,22 @@ def loadData(dataFolder):
                  'srcAirportID', 'destAirportID', 'codeshare', 'stops'], axis='columns',inplace=True)
 
 
+
+    routes['distance'] = routes.apply(geoDesicDist, axis = 1)
+
+    #save data for faster reloading
+    routes.to_csv(processedRoutesFile, index=False)
+
     return routes
 
 
-log.info('Loading routes data!')
+log.info('Loading routes data')
 routesData = loadData(os.path.join(os.path.dirname(__file__), './dataFolder'))
 
 
 Airports = routesData['srcAirport'].unique()
 Airlines = routesData['airline'].unique()
-Aircraft = np.unique(np.concatenate(routesData['aircraft'].values))
+Aircraft = np.unique(np.concatenate([s.split(' ') for s in routesData['aircraft'].values]))
 
 def filterData(selectedAirports, selectedAirlines, selectedAircraft):
 
@@ -114,6 +151,7 @@ def filterData(selectedAirports, selectedAirlines, selectedAircraft):
     log.warn('Need to implement filterData function. For now no filtering is implemented!')
 
     return routesData
+
 
 
 

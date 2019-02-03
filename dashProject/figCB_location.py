@@ -26,7 +26,7 @@ def genLocationFigure(xCfgAircraft, xCfgAirlines):
 
 
     YlOrRd = cl.scales['9']['seq']['YlOrRd']
-    clrscale = cl.to_rgb(cl.interp( YlOrRd, 600 ))
+    clrscale = cl.to_rgb(cl.interp( YlOrRd, 10 ))
 
 
     geoj = {
@@ -68,12 +68,18 @@ def genLocationFigure(xCfgAircraft, xCfgAirlines):
 
 
     layers = []
+    totallines = 0
     for i, (airline, df) in enumerate(routes.groupby('airline')):
-        col = clrscale[i]
+        col = clrscale[i % len(clrscale)]
 
- 
+        if totallines > 1000:
+            break
+
         line_features = []
         for j , (index, row) in enumerate(df.iterrows()):
+            totallines += 1
+            if j > 10:
+                break
 
             line = { "type": "Feature",
                     "geometry": {
@@ -96,8 +102,7 @@ def genLocationFigure(xCfgAircraft, xCfgAirlines):
                  ]  
 
 
-    data = [{'type': 'scattermapbox',
-            'lat': [0], 'lon': [0], 'mode': 'markers'}]
+    data = [{'type': 'scattermapbox'}]
 
     layout = dict(
             uirevision=True,

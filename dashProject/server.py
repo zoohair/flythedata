@@ -70,7 +70,7 @@ app.scripts.config.serve_locally = offlineApp
 
 plotlyConfig = {'displayModeBar': 'hover', 'responsive': True,
                 'scrollZoom': False,
-                'modeBarButtonsToRemove': ['toImage', 'sendDataToCloud', 'lasso2d', 'zoomIn2d', 'zoomOut2d',
+                'modeBarButtonsToRemove': [ 'sendDataToCloud', 'lasso2d', 'zoomIn2d', 'zoomOut2d', #'toImage',
                     'hoverCompareCartesian', 'hoverClosestCartesian', 'toggleSpikelines', 'toggleHover'],
                 'displaylogo': False }
 if not offlineApp: #i.e. running online

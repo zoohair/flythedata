@@ -36,59 +36,66 @@ def genFigure(xCfgAirlines, xCfgLocations, xCfgAircraft):
     groupLabels = []
     for ac, df in routes.groupby('aircraft'):
         distances = df['distance'].values
-        if len(distances) < 100: continue
-        groupLabels += [ac]
-        rangeData += [distances]
+        if len(distances) < 10: continue
+        ac = ac.replace('Boeing ', 'B').replace('Airbus ', '').replace('McDonnell Douglas ', '').replace('Embraer ', 'E').replace('Aerospatiale/Alenia ','')
+        groupLabels += [ac[0:20]] #max 20 characters
+        rangeData += [distances/np.mean(distances)]
 
-        # if len(groupLabels) > 20: break
+    fig = ff.create_distplot(rangeData, groupLabels, 
+                bin_size=100, show_hist = False, show_rug = False, histnorm='probability') #density
+    
+    for d in fig['data']:
+        d['opacity'] = 0.4
 
 
-    fig = ff.create_distplot(rangeData, groupLabels, bin_size=100, show_hist = False, show_rug = False, histnorm='probability density') #density
     fig.layout['xaxis']['type'] = 'log'
-    fig.layout['xaxis']['title'] = 'Distance (km)'
+    fig = fig.to_dict()
 
-    fig.layout['yaxis']['title'] = 'Prob. Density'
-    fig.layout['yaxis']['titlefont'] = {'color':'#a8a8a8'}
+    fig['layout'].update(  dict(
+            title = 'Distances Flown by Aircraft Type',
+            titlefont = {
+                'size': 16,
+                'color': '#a8a8a8',
+                'family': 'Open Sans'
+                },
+            font = {'color': '#fff',},
+            xaxis = dict(
+                type='log',
+                showgrid=False,
+                tickfont={'color':'white'},
+                title= 'Normalized Distance', 
+                titlefont= {'color': '#a8a8a8'}),
+            yaxis=dict(
+                showgrid=False,
+                showticklabels=True,
+                ticks='',
+                tickfont={'color':'white'},
+                visibile=True,
+                title= 'Prob. Density', 
+                titlefont={'color':'#a8a8a8'}
+                ),
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            margin={'t': 40, 'b':40 , 'r':0, 'l': 50, 'pad': 1},
+            legend={'orientation':'v', 'xanchor': 'left', 'x': 1},
+            ))
 
-    fig.layout['title'] = 'Distances Flown'
-    fig.layout['paper_bgcolor']='rgba(0,0,0,0)'
-    fig.layout['plot_bgcolor']='rgba(0,0,0,0)'
-    # fig.layout['margin']={'t': 40, 'b':20 , 'r':0, 'l': 50, 'pad': 1}
-    fig.layout['font'] = {'color': '#fff',}
-    fig.layout['hovermode'] = 'closest'
+    # fig.layout['xaxis']['title'] = {'text': 'Normalized Distance', 'font': {'color': '#a8a8a8'}}
+    # fig.layout['xaxis']['showgrid'] = False
 
-    fig.layout['legend']={'orientation':'v', 'xanchor': 'left', 'x': 1.2}
+    # fig.layout['yaxis']['title'] = 'Prob. Density'
+    # fig.layout['yaxis']['color'] = '#a8a8a8'
+    # fig.layout['yaxis']['showgrid'] = False
 
-    #         titlefont = {
-    #             'size': 16,
-    #             'color': '#a8a8a8',
-    #             'family': 'Open Sans'
-    #             },            
-    #         yaxis=dict(
-    #             showgrid=True,
-    #             gridcolor='rgba(255,255,255,.2)',
-    #             showticklabels=True,
-    #             ticks='',
-    #             tickfont={'color':'white'},
-    #             # dtick=1,#np.log10(50),
-    #             type='log',
-    #             visibile=True,
-    #             title='Number of Individuals (Log)',
-    #             titlefont={'color':'#a8a8a8'}
-    #             ),
-    #         font = {'color': '#fff',},
-    #         xaxis  = {'range': [-.5,len(nSeen)-.5], 'visible':False},
-    #         showlegend = False,
-    #         legend={'orientation':'v'},
-    #         hovermode = 'closest',
-    #         autosize = False,
-    #         paper_bgcolor='rgba(0,0,0,0)',
-    #         plot_bgcolor='rgba(0,0,0,0)',
-    #         margin={'t': 40, 'b':20 , 'r':0, 'l': 50, 'pad': 1},
-    #         dragmode='select',
-    #         clickmode='event+select',
+    # fig.layout.update({'title' : 'Distances Flown'})
+    # fig.layout['paper_bgcolor'] = 'rgba(0,0,0,0)'
+    # fig.layout['plot_bgcolor']  = 'rgba(0,0,0,0)'
 
+    # fig.layout['margin']={'t': 50, 'b':50 , 'r':0, 'l': 0, 'pad': 10}
+    # fig.layout['font'] = {'color': '#a8a8a8'}
+    # fig.layout['hovermode'] = 'closest'
 
+    # fig.layout['legend']={'orientation':'v', 'xanchor': 'left', 'x': 1}
 
 
     return fig

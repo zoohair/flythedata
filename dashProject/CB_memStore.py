@@ -25,10 +25,12 @@ def updateText(xCfgLocations, xCfgAirlines, xCfgAircraft):
     nAirports = len(np.unique(np.concatenate([filteredData['srcAirport'].values, filteredData['destAirport'].values])))
     nAirlines = filteredData['airline'].nunique()
     nAircraft = len(np.unique(np.concatenate([s.split(' ') for s in filteredData['aircraft'].values])))
+    nFlights = len(filteredData)
 
-    return [html.Div('%i Airports'%nAirports, className='timeWindow'),
+    return [html.Div('%i Flights'%nFlights, className='timeWindow'),
+            html.Div('%i Airports'%nAirports, className="timeWindow"),
             html.Div('%i Airlines'%nAirlines, className="timeWindow"),
-            html.Div('%i Aircraft'%nAircraft, className="timeWindow"),
+            html.Div('%i Aircraft Types'%nAircraft, className="timeWindow"),
             ]
 
 
@@ -36,13 +38,13 @@ def updateText(xCfgLocations, xCfgAirlines, xCfgAircraft):
 #######################################
 #######################################
 
-@app.callback(
-    Output('xCfgAirlines', 'data'),
-    [Input('AirlinesGraph','selectedData')])
-def updateStore(selectedData):
-    log.warning('Not yet implemented')
+# @app.callback(
+#     Output('xCfgAirlines', 'data'),
+#     [Input('AirlinesGraph','selectedData')])
+# def updateStore(selectedData):
+#     log.warning('Not yet implemented')
 
-    return {}
+#     return {}
 
 
 ########################################

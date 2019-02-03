@@ -31,8 +31,9 @@ header = html.Header([
     ])
 
 statsBar = html.Div([
-            html.Div('Selected:', className='label'),
+            html.Div('Visualized:', className='label'),
             html.Div(id='stats', children=[
+                html.Div('xx Flights', className='timeWindow'),
                 html.Div('xx Airports', className='timeWindow'),
                 html.Div('xx Airlines', className="timeWindow"),
                 html.Div('xx Aircraft', className="timeWindow"),
@@ -58,7 +59,7 @@ airlineGraphConfig['displayModeBar'] = False
 airlines = html.Div([
             dcc.Graph(id='AirlinesGraph', config=airlineGraphConfig, figure=emptyFig,
                      animate=False, clear_on_unhover=False)
-            ], className="location-wrapper")
+            ], className="location-wrapper",style={'display': 'none'})
 
 rangesGraphConfig = copy.deepcopy(plotlyConfig)
 rangesGraphConfig['modeBarButtonsToRemove'] += ['autoScale2d']
@@ -67,7 +68,7 @@ ranges = html.Div([
                     animate=False, clear_on_unhover=False)
             ], className="location-wrapper")
 
-dashboard = html.Div([location, ranges, airlines],className='dashboard')
+dashboard = html.Div([location, ranges],className='dashboard')
 
 ########################################
 ########################################
@@ -84,7 +85,7 @@ bodyDivs += [header, statsBar, dashboard,
 app.layout = html.Article(bodyDivs)
 
 from . import CB_memStore  
-from . import figCB_airlines
+# from . import figCB_airlines
 from . import figCB_location
 from . import figCB_ranges
 

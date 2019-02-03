@@ -20,7 +20,7 @@ log = logging.getLogger('dataModule')
 
 from geopy.distance import geodesic
 def geoDesicDist(r):
-    dist = round(geodesic(r['srcLonLat'][::-1], r['destLonLat'][::-1]).km)
+    dist = round(geodesic([r['srcLat'] , r['srcLon']] , [r['destLat'] , r['destLon']]).km)
 
     return dist
 
@@ -73,25 +73,34 @@ def loadData(dataFolder):
                 
             #save data including lat/lon
             airportIDs[ID] = {'name': ' '.join(airportName), 
-                              'lonlat': [thisairport['lon'].values[0], thisairport['lat'].values[0]]}
+                              'lon': thisairport['lon'].values[0], 
+                              'lat': thisairport['lat'].values[0],
+                              'country': thisairport['country'].values[0]}
             
         except:
             log.debug('airport ID %s not found in database'%ID)
-            airportIDs[ID] = {'name': '???', 'lonlat': [0,0]}
+            airportIDs[ID] = {'name': '???'}
     airportLookup = lambda ID, attr: airportIDs[ID][attr]
 
 
     routes['srcAirport']  = routes['srcAirportID'].apply(airportLookup,args=['name'])
     routes['destAirport'] = routes['destAirportID'].apply(airportLookup,args=['name'])
 
-
-    routes['srcLonLat'] = routes['srcAirportID'].apply(airportLookup, args=['lonlat'])
-    routes['destLonLat'] = routes['destAirportID'].apply(airportLookup,args=['lonlat'])
-
-
     #drop any route where src/dest airports are not known
     droprows =  routes.loc[np.logical_or(routes['destAirport'] == '???' , routes['srcAirport'] == '???')]
     routes.drop(droprows.index, inplace=True)
+
+
+    routes['srcCountry'] = routes['srcAirportID'].apply(airportLookup, args=['country'])
+    routes['destCountry'] = routes['destAirportID'].apply(airportLookup, args=['country'])
+
+    routes['srcLon']  = routes['srcAirportID'].apply(airportLookup, args=['lon'])
+    routes['srcLat']  = routes['srcAirportID'].apply(airportLookup, args=['lat'])
+    routes['destLon'] = routes['destAirportID'].apply(airportLookup, args=['lon'])
+    routes['destLat'] = routes['destAirportID'].apply(airportLookup, args=['lat'])
+
+
+
         
     #drop any route that is codeshare or has stops
     droprows =  routes.loc[np.logical_or(~routes['codeshare'].isna() , routes['stops'] > 0)]

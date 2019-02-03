@@ -29,77 +29,98 @@ def genLocationFigure(xCfgAircraft, xCfgAirlines):
     clrscale = cl.to_rgb(cl.interp( YlOrRd, 10 ))
 
 
-    geoj = {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "properties": {},
-          "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-              [
-                [
-                  174.74475860595703,
-                  -36.86533886128865
-                ],
-                [
-                  174.77737426757812,
-                  -36.86533886128865
-                ],
-                [
-                  174.77737426757812,
-                  -36.84913134182603
-                ],
-                [
-                  174.74475860595703,
-                  -36.84913134182603
-                ],
-                [
-                  174.74475860595703,
-                  -36.86533886128865
-                ]
-              ]
-            ]
-          }
-        }
-      ]
-    }
-
-
     layers = []
     totallines = 0
-    for i, (airline, df) in enumerate(routes.groupby('airline')):
+
+
+    #For visualization, we can drop any city pairs regardless of airlines/aircraft/etc.
+    
+    for i, (srcCnt, df1) in enumerate(routes.groupby(['srcCountry'])):
+
+        line_features = []
         col = clrscale[i % len(clrscale)]
 
         if totallines > 1000:
+            log.warning('Reached maximum number of lines that should be drawn ...')
             break
 
-        line_features = []
-        for j , (index, row) in enumerate(df.iterrows()):
+
+        for destCnt, df in df1.groupby('destCountry'):
+
             totallines += 1
-            if j > 10:
-                break
+
+
+            #only consider international flights
+            if(destCnt == srcCnt) : continue 
+
+            row = dict(
+              srcLat  = np.median(df['srcLat']),
+              srcLon  = np.median(df['srcLon']),
+              destLat = np.median(df['destLat']),
+              destLon = np.median(df['destLon'])
+            )
 
             line = { "type": "Feature",
-                    "geometry": {
+                     "geometry": {
                         "type": "LineString",
-                        "coordinates": [row['srcLonLat'], row['destLonLat']]
-                    }
+                        "coordinates": [[row['srcLon'], row['srcLat']], [row['destLon'], row['destLat']]]
+                        },
                     }
 
             line_features.append(line)
 
+
+
         geojsonDict = {'type': 'FeatureCollection', 
-                       'features': line_features}
+                        'features': line_features}
 
         layers += [dict(sourcetype = 'geojson',
-                     source = geojsonDict,
-                     color= col,
-                     type = 'line',
-                     line= {'width': 1},
-                    )
-                 ]  
+           source = geojsonDict,
+           color = col,
+           type = 'line',
+           #line= {'width': 1},
+           opacity=.2
+          )
+        ]  
+
+
+
+
+
+
+    # for i, (airline, df) in enumerate(routes.groupby('airline')):
+    #     col = clrscale[i % len(clrscale)]
+
+    #     if totallines > 2000:
+    #         log.warning('Reached maximum number of lines that should be drawn ...')
+    #         break
+
+    #     line_features = []
+    #     for j , (index, row) in enumerate(df.iterrows()):
+    #         totallines += 1
+    #         if j > 10:
+    #             break
+
+    #         line = { "type": "Feature",
+    #                 "geometry": {
+    #                     "type": "LineString",
+    #                     "coordinates": [[row['srcLon'], row['srcLat']], [row['destLon'], row['destLat']]]
+    #                 }
+    #                 }
+
+    #         line_features.append(line)
+
+    #     geojsonDict = {'type': 'FeatureCollection', 
+    #                    'features': line_features}
+
+    #     layers += [dict(sourcetype = 'geojson',
+    #                  source = geojsonDict,
+    #                  color= col,
+    #                  type = 'line',
+    #                  line= {'width': 1},
+    #                  opacity=.3
+    #                 )
+    #              ]  
 
 
     data = [{'type': 'scattermapbox'}]
@@ -140,7 +161,7 @@ def genLocationFigure(xCfgAircraft, xCfgAirlines):
                     bearing=0,
                     center=dict(lat=0,lon=0),
                     pitch=0,
-                    zoom=.1,
+                    zoom=.5,
                     layers=layers,
                 ),
            )

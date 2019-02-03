@@ -14,7 +14,6 @@ As an example of interesting trends that can be extracted. The following graph f
 
 It would be interesting for example for an aircraft manufacturer to dig deeper into this result to understand which airlines are using the 777 in this manner, and to potentially offer a different aircraft with better economics for these routes. Likewise, an airline executive could conclude that if a competitor airline is using a 777 on a short route, the route has a lot of passengers and is therefore a potential candidate for adding a new city pair.
 
-
 Currently the Heroku app has only a range and world view app, but I plan to add a 3rd graph showing the breakdown of the routes by airlines. This would allow the user to narrow down the analysis to specific airlines of interest. This graph would be cross-linked with both the world-view and the aircraft-range map.
 
 Note that although the world view map is currently "static" in that only a subset of routes are plotted, I intend to improve this view as follows:
@@ -23,6 +22,7 @@ Note that although the world view map is currently "static" in that only a subse
 * Make it possible to use the map to select a "region of interest" and only plot airlines/aircraft flying from/to that region.
 * Plot the lines as geodesic lines (although they are kind of cool as straight "network" lines)
 
+As for the range graph, it is currently a bit difficult to navigate. For example, although there are 230 aircraft types, many of them are variants of the same aircraft (ex. 737-200 vs. 737-300), and it should be possible to cluster these types into "families" to make it easier to use. Additionally, at the moment, I chose to normalize the distances by the mean to make comparisons easy, but providing a non-normalized view might be more useful in other cases.
 
 
 Aside from these obvious three graphs, there are other potential ways to analyze and tease out meaning from this data by combining it with other data:

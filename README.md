@@ -15,18 +15,20 @@ As an example of interesting trends that can be extracted. The following graph f
 It would be interesting for example for an aircraft manufacturer to dig deeper into this result to understand which airlines are using the 777 in this manner, and to potentially offer a different aircraft with better economics for these routes. Likewise, an airline executive could conclude that if a competitor airline is using a 777 on a short route, the route has a lot of passengers and is therefore a potential candidate for adding a new city pair.
 
 
-Although the world view map is currently "static" in that only a subset of routes are plotted, I intend to improve this view as follows:
+Currently the Heroku app has only a range and world view app, but I plan to add a 3rd graph showing the breakdown of the routes by airlines. This would allow the user to narrow down the analysis to specific airlines of interest. This graph would be cross-linked with both the world-view and the aircraft-range map.
+
+Note that although the world view map is currently "static" in that only a subset of routes are plotted, I intend to improve this view as follows:
 * link the routes displayed to the aircraft type and the airlines selected
 * Use a clustering algorithm to minimize the number of lines being plotted and improve usability
-* Make it possible to use the map to select a "region of interest" and only plot airlines/aircraft of that region.
+* Make it possible to use the map to select a "region of interest" and only plot airlines/aircraft flying from/to that region.
+* Plot the lines as geodesic lines (although they are kind of cool as straight "network" lines)
 
-
-In addition to these two graphs, I plan to add a 3rd graph showing the breakdown of the routes by airlines. This would allow the user to narrow down the analysis to specific airlines of interest. This graph would be cross-linked with both the world-view and the aircraft-range map.
 
 
 Aside from these obvious three graphs, there are other potential ways to analyze and tease out meaning from this data by combining it with other data:
-* One possibility is to use data about the capacity of each aircraft type (both in economy/business/first) which can be scraped from a site like [Seat Guru][http://seatguru.com]. This would make it possible to get a view into the seat-capacity of each airlines by region or city-pairs.
-* Another possibility is 
+* One possibility is to use data about the capacity of each aircraft type (both in economy/business/first) which can be scraped from a site like [Seat Guru](http://seatguru.com). This would make it possible to get a view into the seat-capacity of each airlines by region or city-pairs.
+* With the advent of ADS-B and tracking websites like [FlightAware](http://flightaware.com), it should be possible to link the route data to the more granular data. For example, we could obtain the average altitude that aircraft are flown, and see if there is a difference between airlines.
+
 
 #Limitations
 Unfortunately, there are limitations to this data set.

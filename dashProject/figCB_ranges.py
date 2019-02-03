@@ -81,23 +81,6 @@ def genFigure(xCfgAirlines, xCfgLocations, xCfgAircraft):
             legend={'orientation':'v', 'xanchor': 'left', 'x': 1},
             ))
 
-    # fig.layout['xaxis']['title'] = {'text': 'Normalized Distance', 'font': {'color': '#a8a8a8'}}
-    # fig.layout['xaxis']['showgrid'] = False
-
-    # fig.layout['yaxis']['title'] = 'Prob. Density'
-    # fig.layout['yaxis']['color'] = '#a8a8a8'
-    # fig.layout['yaxis']['showgrid'] = False
-
-    # fig.layout.update({'title' : 'Distances Flown'})
-    # fig.layout['paper_bgcolor'] = 'rgba(0,0,0,0)'
-    # fig.layout['plot_bgcolor']  = 'rgba(0,0,0,0)'
-
-    # fig.layout['margin']={'t': 50, 'b':50 , 'r':0, 'l': 0, 'pad': 10}
-    # fig.layout['font'] = {'color': '#a8a8a8'}
-    # fig.layout['hovermode'] = 'closest'
-
-    # fig.layout['legend']={'orientation':'v', 'xanchor': 'left', 'x': 1}
-
 
     return fig
 

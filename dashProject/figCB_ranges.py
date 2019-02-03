@@ -45,7 +45,7 @@ def genFigure(xCfgAirlines, xCfgLocations, xCfgAircraft):
                 bin_size=100, show_hist = False, show_rug = False, histnorm='probability') #density
     
     for d in fig['data']:
-        d['opacity'] = 0.4
+        d['opacity'] = 0.6
 
 
     fig.layout['xaxis']['type'] = 'log'
@@ -61,7 +61,8 @@ def genFigure(xCfgAirlines, xCfgLocations, xCfgAircraft):
             font = {'color': '#fff',},
             xaxis = dict(
                 type='log',
-                showgrid=False,
+                showgrid=True,
+                gridcolor='rgba(255,255,255,.2)',
                 tickfont={'color':'white'},
                 title= 'Normalized Distance', 
                 titlefont= {'color': '#a8a8a8'}),

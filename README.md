@@ -1,4 +1,4 @@
-#Introduction
+# Introduction
 
 This project aims to analyze and visualize the world flight routes data for different airlines.
 
@@ -10,7 +10,7 @@ A web-app built using Dash/Plotly can make it easier to discover this data. A dr
 As an example of interesting trends that can be extracted. The following graph figure shows that the 777 and 787, two of Boeing's best selling aircraft, are used slightly differently by airlines. The figure is a probability density plot of all scheduled flights by all airlines, with the distance (x-axis) normalized by the mean. It shows that while the 787 is flown often near its mean, the 777 has two distinct modes, with one at approximately 1.5 and the other at 0.5 of the mean. This indicates that the 777 is often used to fly much shorter routes than its maximum range.
 
 
-![Range of 777 vs 787](https://www.dropbox.com/s/u53lz1d876203x7/Flight%20Ranges%20Distribution.png?dl=1)
+![Range of 777 vs 787](https://www.dropbox.com/s/u53lz1d876203x7/Flight%20Ranges%20Distribution.png?raw=1)
 
 It would be interesting for example for an aircraft manufacturer to dig deeper into this result to understand which airlines are using the 777 in this manner, and to potentially offer a different aircraft with better economics for these routes. Likewise, an airline executive could conclude that if a competitor airline is using a 777 on a short route, the route has a lot of passengers and is therefore a potential candidate for adding a new city pair.
 
@@ -28,7 +28,7 @@ Aside from these obvious three graphs, there are other potential ways to analyze
 * One possibility is to use data about the capacity of each aircraft type (both in economy/business/first) which can be scraped from a site like [Seat Guru][http://seatguru.com]. This would make it possible to get a view into the seat-capacity of each airlines by region or city-pairs.
 * Another possibility is 
 
-#Limitations
+# Limitations
 Unfortunately, there are limitations to this data set.
 
 First of all, it's an old one dating back to 2014. Any serious use of it would require an updated route. It could be helpful to find ways to scrape this data from amadeus or other airline scheduling tools. But that is not a trivial task and it's not clear if it's within the scope of this project.

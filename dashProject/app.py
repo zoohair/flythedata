@@ -1,6 +1,7 @@
 from .server import app, log, plotlyConfig, dcc, html
 
 
+from . import dataModule
 
 #Import other helpful modules
 import numpy as np
@@ -68,7 +69,23 @@ ranges = html.Div([
                     animate=False, clear_on_unhover=False)
             ], className="location-wrapper")
 
-dashboard = html.Div([location, ranges],className='dashboard')
+aircraftSelector = dcc.Dropdown(
+    id="AircraftDropdown",
+    options=[ {'label': c , 'value': c} for c in dataModule.Aircraft],
+    value= ['787', 'Boeing 777-300 pax'],
+    multi=True,
+    className = "dropdown"
+)
+
+normalized = dcc.Checklist(
+    id = 'NormalizedDistance',
+    options=[
+        {'label': 'Normalized', 'value': 'yes'}
+    ],
+    values=[]
+)
+
+dashboard = html.Div([location, aircraftSelector, normalized, ranges],className='dashboard')
 
 ########################################
 ########################################

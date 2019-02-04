@@ -13,19 +13,18 @@ import datetime
     Output('stats','children'),
     [Input('xCfgLocations','data'),
      Input('xCfgAirlines', 'data'),
-     Input('xCfgAircraft', 'data')]
-    )
+     Input('AircraftDropdown','value')])
 def updateText(xCfgLocations, xCfgAirlines, xCfgAircraft):
     selectedAirports   = xCfgLocations.get('airports', dataModule.Airports)
     selectedAirlines   = xCfgAirlines.get('airlines', dataModule.Airlines)
-    selectedAircraft   = xCfgAircraft.get('aircraft', dataModule.Aircraft)
+    selectedAircraft   = xCfgAircraft
 
     filteredData = dataModule.filterData(selectedAirports, selectedAirlines, selectedAircraft)
 
     nAirports = len(np.unique(np.concatenate([filteredData['srcAirport'].values, filteredData['destAirport'].values])))
     nAirlines = filteredData['airline'].nunique()
-    nAircraft = len(np.unique(np.concatenate([s.split(' ') for s in filteredData['aircraft'].values])))
-    nFlights = len(filteredData)
+    nAircraft = len(selectedAircraft)
+    nFlights  = len(filteredData)
 
     return [html.Div('%i Flights'%nFlights, className='timeWindow'),
             html.Div('%i Airports'%nAirports, className="timeWindow"),
@@ -45,19 +44,6 @@ def updateText(xCfgLocations, xCfgAirlines, xCfgAircraft):
 #     log.warning('Not yet implemented')
 
 #     return {}
-
-
-########################################
-########################################
-@app.callback(
-    Output('xCfgAircraft', 'data'),
-    [Input('AircraftGraph', 'relayoutData')])
-def updateStore(relayoutData):
-########################################
-########################################
-    log.warning('Not yet implemented')
-
-    return {}
 
 ########################################
 ########################################

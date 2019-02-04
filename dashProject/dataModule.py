@@ -139,19 +139,20 @@ def loadData(dataFolder):
 
 
 log.info('Loading routes data')
+global routesData
 routesData = loadData(os.path.join(os.path.dirname(__file__), './dataFolder'))
 
 
 Airports = routesData['srcAirport'].unique()
 Airlines = routesData['airline'].unique()
-Aircraft = np.unique(np.concatenate([s.split(' ') for s in routesData['aircraft'].values]))
+Aircraft = routesData['aircraft'].unique()
 
 def filterData(selectedAirports, selectedAirlines, selectedAircraft):
 
+    global routesData
+    filteredData = routesData[routesData['aircraft'].isin(selectedAircraft)]
 
-    log.warn('Need to implement filterData function. For now no filtering is implemented!')
-
-    return routesData
+    return filteredData
 
 
 

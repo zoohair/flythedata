@@ -3,6 +3,7 @@
 ###########
 numpy #for math and numerical stuff
 geopy #for geodesic distances
+pyproj #for geodesic lines
 scipy #for more math tools
 pyyaml #for yaml configs
 

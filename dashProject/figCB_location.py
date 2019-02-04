@@ -8,19 +8,21 @@ import colorlover as cl
 #data import
 from . import dataModule
 
+
+import pyproj
 #TODO: use xsrc and ysrc to avoid duplicating data?
 
 ########################################
 ########################################
 @app.callback(
     Output('WorldMapGraph', 'figure'),
-    [Input('xCfgAircraft', 'data'), Input('xCfgAirlines', 'data')])
+    [Input('AircraftDropdown','value'), Input('xCfgAirlines', 'data')])
 def genLocationFigure(xCfgAircraft, xCfgAirlines):
 ########################################
 ########################################
 
     selectedAirlines   = xCfgAirlines.get('airlines', dataModule.Airlines)
-    selectedAircraft   = xCfgAircraft.get('aircraft', dataModule.Aircraft)
+    selectedAircraft   = xCfgAircraft
 
     routes = dataModule.filterData(dataModule.Airports, selectedAirlines, selectedAircraft)
 
@@ -40,7 +42,7 @@ def genLocationFigure(xCfgAircraft, xCfgAirlines):
         line_features = []
         col = clrscale[i % len(clrscale)]
 
-        if totallines > 1000:
+        if totallines > 1000/20:
             log.warning('Reached maximum number of lines that should be drawn ...')
             break
 
@@ -51,25 +53,24 @@ def genLocationFigure(xCfgAircraft, xCfgAirlines):
 
 
             #only consider international flights
-            if(destCnt == srcCnt) : continue 
+            # if(destCnt == srcCnt) : continue 
 
-            row = dict(
-              srcLat  = np.median(df['srcLat']),
-              srcLon  = np.median(df['srcLon']),
-              destLat = np.median(df['destLat']),
-              destLon = np.median(df['destLon'])
-            )
+            for x, row in df.iterrows():
+                # row = dict(
+                #   srcLat  = (df['srcLat']),
+                #   srcLon  = (df['srcLon']),
+                #   destLat = (df['destLat']),
+                #   destLon = (df['destLon'])
+                # )
 
-            line = { "type": "Feature",
-                     "geometry": {
-                        "type": "LineString",
-                        "coordinates": [[row['srcLon'], row['srcLat']], [row['destLon'], row['destLat']]]
-                        },
-                    }
+                line = { "type": "Feature",
+                         "geometry": {
+                            "type": "LineString",
+                            "coordinates": geoline([row['srcLon'], row['srcLat']], [row['destLon'], row['destLat']])
+                            },
+                        }
 
-            line_features.append(line)
-
-
+                line_features.append(line)
 
         geojsonDict = {'type': 'FeatureCollection', 
                         'features': line_features}
@@ -169,4 +170,33 @@ def genLocationFigure(xCfgAircraft, xCfgAirlines):
     fig = dict( data=data, layout=layout )
 
     return fig
+
+
+
+def geoline(start, end):
+    # calculate distance between points
+    g = pyproj.Geod(ellps='WGS84')
+
+    lonlats = g.npts(start[0], start[1], end[0], end[1], 20)
+
+    # npts doesn't include start/end points, so prepend/append them
+    lonlats.insert(0, start)
+    lonlats.append(end)
+
+
+    switchdir = 0
+    for i, lonlat in enumerate(lonlats):
+        if switchdir != 0:
+            lonlats[i] = [lonlat[0] - switchdir * 360, lonlat[1]]
+            continue
+
+        if i > 0 and np.abs(lonlat[0] - lonlats[i-1][0]) > 180:
+            switchdir = np.sign(lonlat[0] - lonlats[i-1][0])
+            lonlats[i] = [lonlat[0] - switchdir * 360, lonlat[1]]
+
+
+
+
+    return lonlats
+
 

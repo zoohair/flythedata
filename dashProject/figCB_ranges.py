@@ -15,15 +15,20 @@ import plotly.figure_factory as ff
 ########################################
 @app.callback(
     Output('AircraftGraph', 'figure'),
-    [Input('xCfgAirlines', 'data'), Input('xCfgLocations', 'data')],
-    [State('xCfgAircraft', 'data')])
-def genFigure(xCfgAirlines, xCfgLocations, xCfgAircraft):
+    [Input('xCfgAirlines', 'data'), Input('xCfgLocations', 'data'), 
+     Input('AircraftDropdown','value'),
+     Input('NormalizedDistance', 'values')])
+def genFigure(xCfgAirlines, xCfgLocations, xCfgAircraft, normalized):
 ########################################
 ########################################
 
+
+
     selectedAirports   = xCfgAirlines.get('airports', dataModule.Airports)
     selectedAirlines   = xCfgAirlines.get('airlines', dataModule.Airlines)
-    selectedAircraft   = xCfgAircraft.get('aircraft', dataModule.Aircraft)
+    # selectedAircraft   = xCfgAircraft.get('aircraft', dataModule.Aircraft)
+
+    selectedAircraft = xCfgAircraft
 
     routes = dataModule.filterData(selectedAirports, selectedAirlines, selectedAircraft)
 
@@ -36,20 +41,25 @@ def genFigure(xCfgAirlines, xCfgLocations, xCfgAircraft):
     groupLabels = []
     for ac, df in routes.groupby('aircraft'):
         distances = df['distance'].values
-        if len(distances) < 10: continue
+        if len(distances) < 3: continue
         ac = ac.replace('Boeing ', 'B').replace('Airbus ', '').replace('McDonnell Douglas ', '').replace('Embraer ', 'E').replace('Aerospatiale/Alenia ','')
         groupLabels += [ac[0:20]] #max 20 characters
-        rangeData += [distances/np.mean(distances)]
+        m = np.mean(distances) if 'yes' in normalized else 1
+        rangeData += [distances/m]
+
 
     fig = ff.create_distplot(rangeData, groupLabels, 
                 bin_size=100, show_hist = False, show_rug = False, histnorm='probability') #density
     
-    for d in fig['data']:
-        d['opacity'] = 0.6
 
-
-    fig.layout['xaxis']['type'] = 'log'
     fig = fig.to_dict()
+
+
+    for i, d in enumerate(fig['data']):
+        d['opacity'] = 0.6
+        d['selectgroup'] = i
+        d['selectedpoints'] = [0]
+
 
     fig['layout'].update(  dict(
             title = 'Distances Flown by Aircraft Type',
